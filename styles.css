@@ -69,3 +69,8 @@ body {
     margin-top: 15px;
     font-size: 20px;
 }
+
+#text-display {
+    min-height: 300px; /* 確保有足夠的高度防止被推出視野 */
+    overflow-y: auto;
+}
