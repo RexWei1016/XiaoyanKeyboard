@@ -3,6 +3,7 @@ const userInput = document.getElementById('user-input');
 const startBtn = document.getElementById('start-btn');
 const timerDisplay = document.getElementById('timer');
 const scoreDisplay = document.getElementById('score-display');
+const gameContainer = document.getElementById('game-container');
 const originalText = `我怎會毫髮無傷
 我真是傷透了
 除了頭髮還在
@@ -30,6 +31,14 @@ function init() {
     scoreDisplay.textContent = '';
     userInput.disabled = true;
 }
+
+userInput.addEventListener('focus', function() {
+    gameContainer.classList.add('keyboard-active');
+});
+
+userInput.addEventListener('blur', function() {
+    gameContainer.classList.remove('keyboard-active');
+});
 
 function compareInput() {
     const userText = userInput.value;
