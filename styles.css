@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+    margin-top: 50px;
+}
+
+#game-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#text-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 24px;
+    white-space: pre-wrap;
+    opacity: 0.7; /* 使文本半透明，以便看見背後的輸入框 */
+}
+
+#user-input {
+    position: relative;
+    z-index: 2; /* 確保輸入框在文本之上 */
+    font-size: 24px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    border: none;
+    outline: none;
+    resize: none; /* 不允許調整大小 */
+    height: 50px; /* 固定輸入框高度 */
+    overflow-y: hidden; /* 隱藏垂直滾動條 */
+}
+
+.correct {
+    color: black;
+    opacity: 1; /* 確保正確的文本是不透明的 */
+}
+
+.incorrect {
+    color: red;
+    opacity: 1; /* 確保錯誤的文本是不透明的 */
+}
+
+.untyped {
+    color: gray;
+    opacity: 1; /* 確保未輸入的文本是不透明的 */
+}
