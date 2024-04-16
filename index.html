@@ -9,8 +9,11 @@
 </head>
 <body>
     <div id="game-container">
+        <button id="start-btn" class="btn btn-primary">開始</button>
         <div id="text-display"></div>
-        <textarea class="form-control form-control-lg" id="user-input" autofocus oninput="compareInput()"></textarea>
+        <textarea class="form-control form-control-lg" id="user-input" autofocus oninput="compareInput()" disabled></textarea>
+        <div id="timer">剩餘時間：60 秒</div>
+        <div id="score-display"></div>
     </div>
     <script src="script.js"></script>
 </body>

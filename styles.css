@@ -3,50 +3,69 @@ body {
     text-align: center;
     position: relative;
     margin-top: 50px;
+    background-color: #f0f8ff; /* 設定整體背景為淺藍色 */
 }
 
 #game-container {
     position: relative;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
+    padding-top: 60px;
+    background-color: #e6f7ff; /* 為遊戲容器設定稍微深一點的藍色背景 */
+    border-radius: 8px; /* 添加邊角圓度 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 添加陰影效果 */
+    padding: 20px; /* 增加內部空間 */
 }
 
 #text-display {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    background-color: #e6f7ff; /* 文本顯示區的背景顏色 */
+    color: #333; /* 設定文字顏色為深灰，以增加可讀性 */
+    margin-top: 10px;
     font-size: 24px;
     white-space: pre-wrap;
-    opacity: 0.7; /* 使文本半透明，以便看見背後的輸入框 */
+    overflow-y: auto;
+    max-height: 300px;
+    padding: 15px; /* 增加一些內邊距 */
+    border-radius: 8px; /* 邊角圓度 */
 }
 
 #user-input {
-    position: relative;
-    z-index: 2; /* 確保輸入框在文本之上 */
+    background: rgba(255, 255, 255, 0.9); /* 輸入框半透明白色背景 */
     font-size: 24px;
-    padding: 8px;
+    padding: 10px;
     width: 100%;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.8); /* 半透明背景 */
-    border: none;
+    border: 2px solid #b3d7ff; /* 輸入框邊框 */
     outline: none;
-    resize: none; /* 不允許調整大小 */
-    height: 50px; /* 固定輸入框高度 */
-    overflow-y: hidden; /* 隱藏垂直滾動條 */
+    resize: none;
+    height: 50px;
+    margin-top: 10px;
+}
+
+#start-btn {
+    background-color: #4d94ff; /* 按鈕背景顏色 */
+    color: white; /* 按鈕文字顏色 */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer; /* 鼠標樣式 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 按鈕陰影 */
 }
 
 .correct {
     color: black;
-    opacity: 1; /* 確保正確的文本是不透明的 */
 }
 
 .incorrect {
     color: red;
-    opacity: 1; /* 確保錯誤的文本是不透明的 */
 }
 
 .untyped {
-    color: gray;
-    opacity: 1; /* 確保未輸入的文本是不透明的 */
+    color: #ccc; /* 未輸入文字顏色 */
+}
+
+#timer, #score-display {
+    color: #2b2b2b; /* 時間和分數顯示顏色 */
+    margin-top: 15px;
+    font-size: 20px;
 }

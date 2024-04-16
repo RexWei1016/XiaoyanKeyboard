@@ -1,5 +1,8 @@
 const textDisplay = document.getElementById('text-display');
 const userInput = document.getElementById('user-input');
+const startBtn = document.getElementById('start-btn');
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score-display');
 const originalText = `我怎會毫髮無傷
 我真是傷透了
 除了頭髮還在
@@ -9,49 +12,88 @@ const originalText = `我怎會毫髮無傷
 從來沒想到會跟這類事扯上，
 我真的頭都抬不起
 一輩子沒有這樣怕見人
-
 打擊很大
-
 很多事我都不知道
 覺得對不起耿如
 如果早知道我絕不會讓她嫁給他!`;
 
-// 初始化顯示文字
+let timeRemaining = 60;
+let timer = null;
+
 function init() {
     const lines = originalText.split('\n');
     const formattedLines = lines.map(line =>
         `<div>${line.split('').map(char => `<span class="untyped">${char}</span>`).join('')}</div>`
     ).join('');
     textDisplay.innerHTML = formattedLines;
+    timerDisplay.textContent = '剩餘時間：60 秒';
+    scoreDisplay.textContent = '';
+    userInput.disabled = true;
 }
 
-// 比對輸入的文字
 function compareInput() {
     const userText = userInput.value;
     const lines = userText.split('\n');
-    const lineDivs = textDisplay.querySelectorAll('div');
-    let charIndex = 0;
+    const divs = textDisplay.querySelectorAll('div');
 
-    lineDivs.forEach((div, divIndex) => {
-        const charSpans = div.querySelectorAll('span');
-        const line = lines[divIndex] || '';
-        charSpans.forEach((span, spanIndex) => {
-            const char = line[spanIndex];
-            if (char == null) {
-                span.className = 'untyped';
-            } else if (char === span.textContent) {
-                span.className = 'correct';
+    divs.forEach((div, divIndex) => {
+        const chars = div.querySelectorAll('span');
+        const lineText = lines[divIndex] || '';
+
+        chars.forEach((char, charIndex) => {
+            if (charIndex < lineText.length) {
+                if (char.textContent === lineText[charIndex]) {
+                    char.classList.remove('untyped', 'incorrect');
+                    char.classList.add('correct');
+                } else {
+                    char.classList.remove('untyped', 'correct');
+                    char.classList.add('incorrect');
+                }
             } else {
-                span.className = 'incorrect';
+                char.classList.remove('correct', 'incorrect');
+                char.classList.add('untyped');
             }
         });
-        charIndex += div.textContent.length;
     });
 
-    // 捲動已完成的行
-    const completedLinesHeight = lineDivs[0].clientHeight * lines.length;
-    textDisplay.style.transform = `translateY(-${completedLinesHeight}px)`;
+    // 滾動至當前輸入行
+    const currentLineIndex = lines.length - 1;
+    const currentDiv = divs[currentLineIndex];
+    if (currentDiv) {
+        textDisplay.scrollTop = currentDiv.offsetTop - textDisplay.offsetTop;
+    }
 }
 
-// 初始化遊戲
+
+
+function startGame() {
+    if (timer) {
+        clearInterval(timer);
+    }
+    timeRemaining = 60;
+    timer = setInterval(() => {
+        timeRemaining--;
+        timerDisplay.textContent = `剩餘時間：${timeRemaining} 秒`;
+        if (timeRemaining === 0) {
+            clearInterval(timer);
+            finishGame();
+        }
+    }, 1000);
+    userInput.disabled = false;
+    userInput.focus();
+}
+
+function finishGame() {
+    userInput.disabled = true;
+    const spans = textDisplay.querySelectorAll('span');
+    const correctCount = Array.from(spans).filter(span => span.className === 'correct').length;
+    const totalCount = spans.length;
+    const accuracy = Math.round((correctCount / totalCount) * 100);
+    scoreDisplay.textContent = `完成度：${accuracy}%`;
+}
+
+startBtn.addEventListener('click', () => {
+    startGame();
+});
+
 init();
